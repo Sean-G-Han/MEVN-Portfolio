@@ -7,6 +7,16 @@ const projectRoutes = require('./routes/ProjectRoutes');
 const proficiencyRoutes = require('./routes/ProficiencyRoutes');
 
 const app = express();
+
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
+  console.log('Headers:', req.headers);
+  console.log('Query params:', req.query);
+  console.log('Body:', req.body);
+  console.log('---');
+  next();
+});
 app.use(cors());
 app.use(express.json());
 
