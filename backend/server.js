@@ -22,7 +22,19 @@ if (!CONNECTION_URL) {
 }
 
 mongoose.connect(CONNECTION_URL, {
-    dbName: 'PortfolioDB', 
+  dbName: 'PortfolioDB',
+})
+.then(() => {
+  console.log('MongoDB connected successfully');
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+})
+.catch((error) => {
+  console.error('MongoDB connection error:', error);
+  app.listen(PORT, () => {
+    console.log(`Server running without MongoDB on port ${PORT}`);
+  });
 });
 
 const db = mongoose.connection;

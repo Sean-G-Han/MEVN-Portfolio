@@ -5,6 +5,7 @@ import axios from 'axios'
 import type { Result } from './types/result'
 import './style.css'
 import { onMounted, ref } from 'vue'
+import BarGraph from './components/proficiencies/BarGraph.vue';
 
 const projects = ref<ProjectProps[]>([])
 
@@ -34,6 +35,7 @@ onMounted(async () => {
   <div id="app" class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div>
       <h1 class="text-2xl font-bold">About Me</h1>
+      <BarGraph />
     </div>
 
     <div>

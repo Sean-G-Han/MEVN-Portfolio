@@ -123,9 +123,9 @@ onMounted(async () => {
     </div>
 
     <div class="button-row">
-      <button type="button" @click="submitProficiency" class="bg-blue-500 text-white px-3 py-1 rounded">Create</button>
-      <button type="button" @click="editProficiency" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
-      <button type="button" @click="deleteProficiency" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+      <button type="button" @click="submitProficiency" class="bg-blue-500 text-white px-3 py-1 rounded">Create Proficiency</button>
+      <button type="button" @click="editProficiency" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit Proficiency</button>
+      <button type="button" @click="deleteProficiency" class="bg-red-500 text-white px-3 py-1 rounded">Delete Proficiency</button>
     </div>
   </form>
 </template>
