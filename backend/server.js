@@ -51,4 +51,4 @@ const db = mongoose.connection;
 db.on('error', (err) => console.error('Connection Error:', err));
 db.once('open', () => console.log('Connection Success'));
 
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

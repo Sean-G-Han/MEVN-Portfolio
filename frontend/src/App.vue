@@ -35,7 +35,7 @@ onMounted(async () => {
   <div id="app" class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div>
       <h1 class="text-2xl font-bold">About Me</h1>
-      <BarGraph />
+      <BarGraph :name="'LOL'" :value="5"/>
     </div>
 
     <div>

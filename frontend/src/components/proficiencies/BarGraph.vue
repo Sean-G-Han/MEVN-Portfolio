@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { ref } from "vue"
+const props = defineProps<{
+    name: string,
+    value: number
+}>()
 
-const value = ref(3.5)
-
-const barWidth = ref(`${(value.value / 5) * 100}%`)
+const barWidth = `${(props.value / 5) * 100}%`
 </script>
 
 <template>
-  <div class="w-100">
-    <div class="w-full bg-gray-200 rounded-full h-6">
-      <div
-        class="bg-blue-500 h-6 rounded-full"
-        :style="{ width: barWidth }"
-      ></div>
+    <div class="flex items-center gap-4 w-full px-5">
+        <div class="w-15 text-right shrink-0 text-lg font-medium">
+            {{ props.name }}
+        </div>
+        <div class="flex-1 bg-gray-200 rounded-full h-4">
+            <div
+                class="bg-blue-500 h-4 rounded-full"
+                :style="{ width: barWidth }"
+            ></div>
+        </div>
     </div>
-  </div>
 </template>

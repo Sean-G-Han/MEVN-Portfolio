@@ -62,6 +62,19 @@ router.get('/get-proficiency', async (req, res) => {
   }
 });
 
+router.get('/get-proficiencies-by-type', async (req, res) => {
+  try {
+    const { type } = req.query;
+    const proficiencies = await Proficiency.find().filter((p) => p.type.includes(type));
+    if (!proficiencies.length) {
+      return res.status(404).json({ error: 'No proficiency found' });
+    }
+    res.status(200).json(proficiencies);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router.delete('/delete-proficiency', async (req, res) => {
   try {
     const { language } = req.body;
