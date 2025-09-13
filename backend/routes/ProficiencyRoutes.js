@@ -64,13 +64,26 @@ router.get('/get-proficiency', async (req, res) => {
 
 router.get('/get-proficiencies-by-type', async (req, res) => {
   try {
-    const { type } = req.query;
-    const proficiencies = await Proficiency.find().filter((p) => p.type.includes(type));
-    if (!proficiencies.length) {
-      return res.status(404).json({ error: 'No proficiency found' });
+    let typeArray = req.query.type.split(',')
+        .map(t => decodeURIComponent(t.trim()).replace(/\+/g, ' '));
+
+    if (!typeArray.length) {
+      return res.status(400).json({ error: 'Type parameter is required' });
     }
+
+    const proficiencies = await Proficiency.find({ 
+      type: { $all: typeArray } 
+    });
+
+    if (!proficiencies.length) {
+      return res.status(404).json({ 
+        error: `No proficiencies found that contain ALL types: ${typeArray.join(', ')}`,
+      });
+    }
+
     res.status(200).json(proficiencies);
   } catch (error) {
+    console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

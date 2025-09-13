@@ -9,7 +9,7 @@ const collapsedHeight = ref(0)
 const descContainer = ref<HTMLElement | null>(null)
 
 const props = defineProps<ProjectProps>()
-const { title, description, techStack, link, date, type } = props
+const { title, description, techStack, date, type } = props
 
 onMounted(() => {
   nextTick(() => {
@@ -19,7 +19,7 @@ onMounted(() => {
       const lineHeight = parseFloat(style.lineHeight)
       const fullHeight = el.scrollHeight
 
-      collapsedHeight.value = Math.min(fullHeight, lineHeight * 4)
+      collapsedHeight.value = Math.min(fullHeight, lineHeight * 5)
       currentHeight.value = collapsedHeight.value
     }
   })

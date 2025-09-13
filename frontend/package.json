@@ -20,7 +20,8 @@
     "axios": "^1.11.0",
     "tailwindcss": "^4.1.13",
     "vue": "^3.5.18",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue3-carousel": "^0.16.0"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
