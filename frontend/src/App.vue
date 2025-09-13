@@ -49,34 +49,39 @@ onMounted(async () => {
 
 <template>
   <div id="app" class="flex flex-col md:flex-row min-h-screen gap-6">
-    <div class="md:w-1/2 md:overflow-y-auto relative">
-      <img 
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-Y3sIpyoFofDDn0l4xJzG8tQSQ9cOXhvkQ&s" 
-        alt="Portrait" 
-        class="cropped-image"
-      >
-      
-      <div class="absolute bottom-0 left-0 w-full bg-white z-10">
-        <Carousel 
-          :items-to-show="1" 
-          :wrap-around="true" 
-          :autoplay="3000" 
-          :pause-autoplay-on-hover="true" 
-          class="carousel-container"
-        >
-          <Slide v-for="(card, index) in proficiencyCards" :key="index" class="carousel-slide">
-            <div class="slide-content">
-              <ProficiencyCard :categories="card.categories" />
-            </div>
-          </Slide>
+    <div class="md:w-1/2 md:overflow-y-auto">
+      <div class="h-full flex flex-col justify-center items-center">
+        <div class="mb-6">
+          <img 
+            src="../logo.png" 
+            alt="Portrait" 
+            class="cropped-image"
+          />
+        </div>
 
-          <template #addons>
-            <Navigation />
-            <Pagination />
-          </template>
-        </Carousel>
+        <div class="w-full max-w-lg">
+          <Carousel 
+            :items-to-show="1" 
+            :wrap-around="true" 
+            :autoplay="3000" 
+            :pause-autoplay-on-hover="true" 
+            class="carousel-container"
+          >
+            <Slide v-for="(card, index) in proficiencyCards" :key="index" class="carousel-slide">
+              <div class="slide-content">
+                <ProficiencyCard :categories="card.categories" />
+              </div>
+            </Slide>
+
+            <template #addons>
+              <Navigation />
+              <Pagination />
+            </template>
+          </Carousel>
+        </div>
       </div>
     </div>
+
 
     <div class="md:w-1/2 md:h-screen md:overflow-y-auto py-5">
       <div class="space-y-4">
@@ -92,13 +97,12 @@ onMounted(async () => {
 
 <style scoped>
 #app {
-  max-width: 1500px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .cropped-image {
-  width: 100%;
-  height: 100vh; 
+  width: 100vw;
   object-fit: cover;
   object-position: center;
 }

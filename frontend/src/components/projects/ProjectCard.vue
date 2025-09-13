@@ -9,7 +9,7 @@ const collapsedHeight = ref(0)
 const descContainer = ref<HTMLElement | null>(null)
 
 const props = defineProps<ProjectProps>()
-const { title, description, techStack, date, type } = props
+const { title, description, techStack, date, type, link } = props
 
 onMounted(() => {
   nextTick(() => {
@@ -35,6 +35,10 @@ const onMouseLeave = () => {
   currentHeight.value = collapsedHeight.value
 }
 
+const redirectToLink = () => {
+  window.location.href = props.link || '#'
+}
+
 const isCollapsed = computed(() => currentHeight.value === collapsedHeight.value)
 </script>
 
@@ -53,6 +57,7 @@ const isCollapsed = computed(() => currentHeight.value === collapsedHeight.value
       :style="{ maxHeight: currentHeight + 'px' }"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
+      @mousedown="redirectToLink"
     >
       <p class="whitespace-pre-line">
         {{ description }}
@@ -69,6 +74,7 @@ const isCollapsed = computed(() => currentHeight.value === collapsedHeight.value
 
 <style scoped>
 .card {
+  cursor: pointer;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 16px;
