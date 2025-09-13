@@ -32,7 +32,7 @@ async function ensureUniqueData(req, res, next) {
 
 router.get('/get-all-projects', async (req, res) => {
     try {
-        const projects = await Project.find().sort({ title: -1 });
+        const projects = await Project.find().sort({ title: 1 });
         res.status(200).json(projects);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
