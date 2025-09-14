@@ -1,30 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import type { ProjectProps } from './types/projectProps'
-import { projectDefaults } from './types/projectProps'
 import type { Result } from './types/result'
 import './form.css'
+import type { ProjectProps } from './types/projectProps'
 
 const projectTitles = ref<string[]>([])
 const selectedTitle = ref<string>('')
 
-const props = withDefaults(defineProps<ProjectProps>(), projectDefaults)
 const originalTitle = ref('')
-const title = ref(props.title)
-const description = ref(props.description)
-const techStack = ref(props.techStack)
-const link = ref(props.link)
-const date = ref(props.date)
-const type = ref(props.type)
+const title = ref('')
+const description = ref('')
+const techStack = ref([])
+const link = ref('')
+const date = ref('')
+const type = ref('')
 
-const _formatDate = (isoString: string): string => {
-    if (!isoString) return ''
-    try {
-        return new Date(isoString).toISOString().split('T')[0]
-    } catch {
-        return ''
-    }
+const _formatDate = (isoString?: string): string => {
+  if (!isoString) return ''
+  try {
+    return new Date(isoString).toISOString().split('T')[0]
+  } catch {
+    return ''
+  }
 }
 
 const _filterIrregularInputs = (str: string) => {

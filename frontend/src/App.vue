@@ -4,8 +4,9 @@ import 'vue3-carousel/dist/carousel.css';
 import ProficiencyPage from './components/proficiencies/ProficiencyPage.vue';
 import ProjectsPage from './components/projects/ProjectsPage.vue';
 import { ref, computed } from 'vue';
+import ExperiencePage from './components/experieces/ExperiencePage.vue';
 
-const message = ref('Waking up Render.com server\nThis will take a few seconds...');
+const message = ref('Waking up Render.com server. This will take ~15 seconds...');
 
 const proficienciesLoaded = ref(false);
 const projectsLoaded = ref(false);
@@ -74,10 +75,10 @@ const handleProjectsError = () => {
       </div>
 
       <div class="md:w-3/5">
-        <ProjectsPage 
+        <ExperiencePage 
           @loaded="handleProjectsLoaded"
           @error="handleProjectsError"
-        /> 
+        />
       </div>
     </div>
   </div>

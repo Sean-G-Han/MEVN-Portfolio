@@ -30,6 +30,16 @@ async function ensureUniqueData(req, res, next) {
     }
 }
 
+router.post('/create-project', validateProjectData, ensureUniqueData, async (req, res) => {
+    try {
+        const newProject = new Project(req.body);
+        await newProject.save();
+        res.status(201).json(newProject);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 router.get('/get-all-projects', async (req, res) => {
     try {
         const projects = await Project.find().sort({ title: 1 });
@@ -65,19 +75,6 @@ router.get('/get-project', async (req, res) => {
     }
 });
 
-router.delete('/delete-project', async (req, res) => {
-    try {
-        const { title } = req.body;
-        const project = await Project.findOneAndDelete({ title });
-        if (!project) {
-            return res.status(404).json({ error: 'Project not found' });
-        }
-        res.status(200).json({ message: 'Project deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
 router.put('/edit-project', validateProjectData, async (req, res) => {
     try {
         const { originalTitle, title, type, description, techStack, link, date } = req.body;
@@ -98,11 +95,14 @@ router.put('/edit-project', validateProjectData, async (req, res) => {
     }
 });
 
-router.post('/create-project', validateProjectData, ensureUniqueData, async (req, res) => {
+router.delete('/delete-project', async (req, res) => {
     try {
-        const newProject = new Project(req.body);
-        await newProject.save();
-        res.status(201).json(newProject);
+        const { title } = req.body;
+        const project = await Project.findOneAndDelete({ title });
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
+        res.status(200).json({ message: 'Project deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }

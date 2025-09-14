@@ -6,11 +6,3 @@ export type ProjectProps = {
     link?: string
     date?: string
 }
-
-export const projectDefaults = {
-    title: 'No Title',
-    description: 'No Description',
-    techStack: () => Array<string>(),
-    link: undefined,
-    date: undefined
-}

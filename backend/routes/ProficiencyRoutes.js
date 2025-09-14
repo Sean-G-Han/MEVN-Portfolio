@@ -30,6 +30,16 @@ async function ensureUniqueProficiency(req, res, next) {
   }
 }
 
+router.post('/create-proficiency', validateProficiencyData, ensureUniqueProficiency, async (req, res) => {
+  try {
+    const newProf = new Proficiency(req.body);
+    await newProf.save();
+    res.status(201).json(newProf);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router.get('/get-all-proficiencies', async (req, res) => {
   try {
     const proficiencies = await Proficiency.find().sort({ language: 1 });
@@ -88,19 +98,6 @@ router.get('/get-proficiencies-by-type', async (req, res) => {
   }
 });
 
-router.delete('/delete-proficiency', async (req, res) => {
-  try {
-    const { language } = req.body;
-    const prof = await Proficiency.findOneAndDelete({ language });
-    if (!prof) {
-      return res.status(404).json({ error: 'Proficiency not found' });
-    }
-    res.status(200).json({ message: 'Proficiency deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 router.put('/edit-proficiency', validateProficiencyData, async (req, res) => {
   try {
     const { originalLanguage, language, level, type } = req.body;
@@ -118,14 +115,18 @@ router.put('/edit-proficiency', validateProficiencyData, async (req, res) => {
   }
 });
 
-router.post('/create-proficiency', validateProficiencyData, ensureUniqueProficiency, async (req, res) => {
+router.delete('/delete-proficiency', async (req, res) => {
   try {
-    const newProf = new Proficiency(req.body);
-    await newProf.save();
-    res.status(201).json(newProf);
+    const { language } = req.body;
+    const prof = await Proficiency.findOneAndDelete({ language });
+    if (!prof) {
+      return res.status(404).json({ error: 'Proficiency not found' });
+    }
+    res.status(200).json({ message: 'Proficiency deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 module.exports = router;

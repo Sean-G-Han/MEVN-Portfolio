@@ -12,6 +12,7 @@ const colorClasses: Record<string, { bg: string; text: string }> = {
   Personal: { bg: 'bg-green-200', text: 'text-green-800' },
   School: { bg: 'bg-indigo-200', text: 'text-indigo-800' },
   Intern: { bg: 'bg-pink-200', text: 'text-pink-800' },
+  Work: { bg: 'bg-yellow-200', text: 'text-yellow-800' },
 }
 
 const classes = colorClasses[type] || colorClasses.default

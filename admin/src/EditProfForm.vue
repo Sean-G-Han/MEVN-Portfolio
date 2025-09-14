@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-
-type ProficiencyProps = {
-  language: string
-  level: number
-  type: string[]
-}
+import type { ProficiencyProps } from './types/proficiencyProps'
 
 const proficiencyList = ref<string[]>([])
 const selectedLanguage = ref('')

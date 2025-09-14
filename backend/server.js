@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const projectRoutes = require('./routes/ProjectRoutes');
 const proficiencyRoutes = require('./routes/ProficiencyRoutes');
+const experienceRoutes = require('./routes/ExperienceRoutes');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use('/api/projects', projectRoutes);
 app.use('/api/proficiencies', proficiencyRoutes);
+app.use('/api/experiences', experienceRoutes);
 
 const PORT = process.env.PORT;
 const CONNECTION_URL = process.env.MONGO_URI;
