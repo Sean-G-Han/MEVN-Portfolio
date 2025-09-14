@@ -12,7 +12,7 @@ const barWidth = `${(props.value / 5) * 100}%`
         <div class="w-25 text-right shrink-0 text-lg font-medium">
             {{ props.name }}
         </div>
-        <div class="flex-1 bg-gray-200 rounded-full h-4">
+        <div class="w-50 flex-1 bg-gray-200 rounded-full h-4">
             <div
                 class="bg-blue-500 h-4 rounded-full"
                 :style="{ width: barWidth }"

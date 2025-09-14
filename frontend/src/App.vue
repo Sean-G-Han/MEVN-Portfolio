@@ -5,7 +5,7 @@ import ProficiencyPage from './components/proficiencies/ProficiencyPage.vue';
 import ProjectsPage from './components/projects/ProjectsPage.vue';
 import { ref, computed } from 'vue';
 
-const message = ref('Loading...');
+const message = ref('Waking up Render.com server\nThis will take a few seconds...');
 
 const proficienciesLoaded = ref(false);
 const projectsLoaded = ref(false);
@@ -36,9 +36,15 @@ const handleProjectsError = () => {
 <div id="app">
   <div id="content" class="relative">
 
-    <div class="fixed top-0 left-0 w-full flex justify-end bg-gray-200 p-3 z-100">
+    <div class="fixed top-0 left-0 w-full flex justify-end bg-blue-200 p-3 z-100">
       <nav>
-        <button class="bg-gray-200 hover:bg-gray-400 text-black font-bold p-2 rounded-lg">
+        <button class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg">
+          Intern/Work Experience
+        </button>
+        <button class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg">
+          Projects
+        </button>
+        <button class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg">
           View My GitHub
         </button>
       </nav>
@@ -50,22 +56,20 @@ const handleProjectsError = () => {
     </div>
 
     <div class="flex flex-col md:flex-row min-h-screen gap-6">
-      <div class="md:w-2/5 md:overflow-y-auto">
-        <div class="h-full flex flex-col justify-center items-center">
-          <div class="mb-6">
-            <img 
-              src="../logo.png" 
-              alt="Portrait" 
-              class="logo"
-            />
-          </div>
+      <div class="md:w-2/5 h-full flex flex-col min-h-screen justify-center">
+        <div class="mb-6">
+          <img 
+            src="../logo.png" 
+            alt="Portrait" 
+            class="logo"
+          />
+        </div>
 
-          <div class="w-full max-w-lg">
-            <ProficiencyPage 
-              @loaded="handleProficienciesLoaded"
-              @error="handleProficienciesError"
-            />
-          </div>
+        <div class="w-full max-w-lg">
+          <ProficiencyPage 
+            @loaded="handleProficienciesLoaded"
+            @error="handleProficienciesError"
+          />
         </div>
       </div>
 
