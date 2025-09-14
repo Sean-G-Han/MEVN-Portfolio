@@ -9,7 +9,7 @@ const collapsedHeight = ref(0)
 const descContainer = ref<HTMLElement | null>(null)
 
 const props = defineProps<ProjectProps>()
-const { title, description, techStack, date, type, link } = props
+const { title, description, techStack, date, type } = props
 
 onMounted(() => {
   nextTick(() => {
@@ -71,21 +71,3 @@ const isCollapsed = computed(() => currentHeight.value === collapsedHeight.value
     </div>
   </div>
 </template>
-
-<style scoped>
-.card {
-  cursor: pointer;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-
-.description-container p {
-  margin: 0;
-}
-
-.fade-overlay {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-}
-</style>

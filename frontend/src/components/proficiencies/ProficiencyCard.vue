@@ -6,6 +6,11 @@ import type { Result } from '@/types/result';
 import axios from 'axios';
 import BarGraph from './BarGraph.vue';
 
+const emit = defineEmits<{
+  (e: 'loaded'): void
+  (e: 'error'): void
+}>()
+
 type Category = {
     name: string,
     types: string[]
@@ -31,18 +36,28 @@ const getAllProficienciesByType = async (types: string[]): Promise<Result<Profic
 }
 
 onMounted(async () => {
-    const promises = props.categories.map(async (category) => {
+    try {
+        const promises = props.categories.map(async (category) => {
         const types = category.types
         const result = await getAllProficienciesByType(types)
-        if (result.success && result.data) {
+
+        if (result.success) {
             const newMap = new Map(proficiencyMap.value)
             newMap.set(category.name, result.data)
             proficiencyMap.value = newMap
+        } else {
+            throw new Error(result.error)
         }
-    })
-    
-    await Promise.all(promises)
+        })
+
+        await Promise.all(promises)
+        
+        emit('loaded')
+    } catch (err) {
+        emit('error')
+    }
 })
+
 </script>
 
 <template>
@@ -58,13 +73,3 @@ onMounted(async () => {
         </div>
     </div>
 </template>
-
-<style scoped>
-.card {
-    background: transparent;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-}
-</style>
