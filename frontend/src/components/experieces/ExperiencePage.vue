@@ -3,6 +3,11 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import type { Result } from '@/types/result'
 import type { ExperienceProps } from '@/types/experienceProps';
+import ExperienceCard from './ExperienceCard.vue';
+
+const props = defineProps<{
+  visible: boolean
+}>();
 
 const emit = defineEmits<{
   (e: 'loaded'): void
@@ -37,6 +42,7 @@ onMounted(async () => {
             v-for="experience in experience"
             :key="experience.company"
             v-bind="experience"
+            :visible="props.visible"
         />
     </div>
 </template>

@@ -2,14 +2,14 @@
 import '../../style.css'
 import type { ProjectProps } from '../../types/projectProps'
 import RoundTag from '../RoundTag.vue'
-import { ref, onMounted, nextTick, computed } from 'vue'
+import { ref, onMounted, nextTick, computed, watch } from 'vue'
 
 const currentHeight = ref(0)
 const collapsedHeight = ref(0)
 const descContainer = ref<HTMLElement | null>(null)
 
-const props = defineProps<ProjectProps>()
-const { title, description, techStack, date, type } = props
+const props = defineProps<ProjectProps & { visible: boolean }>()
+const { title, description, techStack, date, type, visible } = props
 
 onMounted(() => {
   nextTick(() => {
@@ -40,6 +40,20 @@ const redirectToLink = () => {
 }
 
 const isCollapsed = computed(() => currentHeight.value === collapsedHeight.value)
+
+watch(() => props.visible, async (val) => {
+  if (val) {
+    await nextTick()
+    if (descContainer.value) {
+      const el = descContainer.value
+      const lineHeight = parseFloat(getComputedStyle(el).lineHeight)
+      const fullHeight = el.scrollHeight
+      collapsedHeight.value = Math.min(fullHeight, lineHeight * 5)
+      currentHeight.value = collapsedHeight.value
+    }
+  }
+})
+
 </script>
 
 <template>

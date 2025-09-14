@@ -8,10 +8,13 @@ import ExperiencePage from './components/experieces/ExperiencePage.vue';
 
 const message = ref('Waking up Render.com server. This will take ~15 seconds...');
 
+const currentPage = ref<'projects' | 'experience'>('projects');
+
 const proficienciesLoaded = ref(false);
 const projectsLoaded = ref(false);
+const experienceLoaded = ref(false);
 
-const loading = computed(() => !(proficienciesLoaded.value && projectsLoaded.value));
+const loading = computed(() => !(proficienciesLoaded.value && projectsLoaded.value && experienceLoaded.value));
 
 const handleProficienciesLoaded = () => {
   message.value = 'Proficiencies loaded successfully.';
@@ -20,6 +23,15 @@ const handleProficienciesLoaded = () => {
 
 const handleProficienciesError = () => {
   proficienciesLoaded.value = true;
+};
+
+const handleExperienceLoaded = () => {
+  message.value = 'Experience loaded successfully.';
+  experienceLoaded.value = true;
+};
+
+const handleExperienceError = () => {
+  experienceLoaded.value = true;
 };
 
 const handleProjectsLoaded = () => {
@@ -37,16 +49,19 @@ const handleProjectsError = () => {
 <div id="app">
   <div id="content" class="relative">
 
-    <div class="fixed top-0 left-0 w-full flex justify-end bg-blue-200 p-3 z-100">
+    <div class="fixed top-0 left-0 w-full flex justify-center bg-blue-200 p-3 z-100">
       <nav>
-        <button class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg">
+        <button 
+          class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg"
+          @click="currentPage = 'experience'"
+        >
           Intern/Work Experience
         </button>
-        <button class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg">
+        <button 
+          class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg"
+          @click="currentPage = 'projects'"
+        >
           Projects
-        </button>
-        <button class="bg-blue-200 hover:bg-blue-400 text-black font-bold p-2 rounded-lg">
-          View My GitHub
         </button>
       </nav>
     </div>
@@ -76,6 +91,14 @@ const handleProjectsError = () => {
 
       <div class="md:w-3/5">
         <ExperiencePage 
+          :visible="currentPage === 'experience'"
+          v-show="currentPage === 'experience'"
+          @loaded="handleExperienceLoaded"
+          @error="handleExperienceError"
+        />
+        <ProjectsPage
+          :visible="currentPage === 'projects'"
+          v-show="currentPage === 'projects'"
           @loaded="handleProjectsLoaded"
           @error="handleProjectsError"
         />

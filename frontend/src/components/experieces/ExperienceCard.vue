@@ -2,14 +2,14 @@
 import '../../style.css'
 import type { ExperienceProps } from '../../types/experienceProps'
 import RoundTag from '../RoundTag.vue'
-import { ref, onMounted, nextTick, computed } from 'vue'
+import { ref, onMounted, nextTick, computed, watch } from 'vue'
 
 const currentHeight = ref(0)
 const collapsedHeight = ref(0)
 const descContainer = ref<HTMLElement | null>(null)
 
-const props = defineProps<ExperienceProps>()
-const { company, role, type, from, to, description } = props
+const props = defineProps<ExperienceProps & { visible: boolean }>()
+const { company, role, type, from, to, description, visible} = props
 
 onMounted(() => {
   nextTick(() => {
@@ -36,6 +36,19 @@ const onMouseLeave = () => {
 }
 
 const isCollapsed = computed(() => currentHeight.value === collapsedHeight.value)
+
+watch(() => props.visible, async (val) => {
+  if (val) {
+    await nextTick()
+    if (descContainer.value) {
+      const el = descContainer.value
+      const lineHeight = parseFloat(getComputedStyle(el).lineHeight)
+      const fullHeight = el.scrollHeight
+      collapsedHeight.value = Math.min(fullHeight, lineHeight * 5)
+      currentHeight.value = collapsedHeight.value
+    }
+  }
+})
 
 </script>
 

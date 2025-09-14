@@ -5,6 +5,10 @@ import axios from 'axios'
 import type { Result } from '@/types/result'
 import type { ProjectProps } from '@/types/projectProps'
 
+const props = defineProps<{
+  visible: boolean
+}>();
+
 const emit = defineEmits<{
   (e: 'loaded'): void
   (e: 'error'): void
@@ -38,6 +42,7 @@ onMounted(async () => {
             v-for="project in projects"
             :key="project.title"
             v-bind="project"
+            :visible="props.visible"
         />
     </div>
 </template>
