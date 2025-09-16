@@ -60,6 +60,14 @@
 </script>
 
 <template>
+  <div class="mt-20">
+  <div class="flex justify-center">
+    <img 
+      src="../../../logo.png" 
+      alt="Portrait" 
+      class="logo"
+    />
+  </div>
   <Carousel
     :items-to-show="1"
     :wrap-around="true"
@@ -78,10 +86,16 @@
       <Pagination />
     </template>
   </Carousel>
+  </div>
 </template>
 
 
 <style scoped>
+.logo {
+  width: 80%;
+  object-fit: cover;
+}
+
 .carousel-container {
   width: 100%;
   position: relative;

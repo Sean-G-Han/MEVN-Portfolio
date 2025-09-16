@@ -73,14 +73,6 @@ const handleProjectsError = () => {
 
     <div class="flex flex-col md:flex-row min-h-screen gap-6">
       <div class="md:w-2/5 h-full flex flex-col min-h-screen justify-center">
-        <div class="mb-6">
-          <img 
-            src="../logo.png" 
-            alt="Portrait" 
-            class="logo"
-          />
-        </div>
-
         <div class="w-full max-w-lg">
           <ProficiencyPage 
             @loaded="handleProficienciesLoaded"
@@ -119,11 +111,5 @@ const handleProjectsError = () => {
 #content {
   max-width: 80vw;
   margin: 0 auto;
-}
-
-.logo {
-  width: 90vw;
-  object-fit: cover;
-  object-position: center;
 }
 </style>
