@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import ProjectCard from '../../components/projects/ProjectCard.vue'
 import axios from 'axios'
 import type { Result } from '@/types/result'
@@ -24,6 +24,15 @@ const getAllProjects = async (): Promise<Result<ProjectProps[]>> => {
         return { success: false, error: (err as Error).message }
     }
 }
+
+const sortedProjects = computed(() => {
+  return [...projects.value].sort((a, b) => {
+    const da = a.date ? new Date(a.date).getTime() : 0
+    const db = b.date ? new Date(b.date).getTime() : 0
+    return db - da
+  })
+})
+
 onMounted(async () => {
     const res = await getAllProjects()
     if (res.success) {
@@ -39,7 +48,7 @@ onMounted(async () => {
 <template>
     <div class="space-y-4 mt-20 md:overflow-y-auto h-full">
         <ProjectCard
-            v-for="project in projects"
+            v-for="project in sortedProjects"
             :key="project.title"
             v-bind="project"
             :visible="props.visible"

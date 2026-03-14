@@ -9,7 +9,7 @@ const collapsedHeight = ref(0)
 const descContainer = ref<HTMLElement | null>(null)
 
 const props = defineProps<ProjectProps & { visible: boolean }>()
-const { title, description, techStack, date, type, visible } = props
+const { title, description, techStack, date, type, } = props
 
 onMounted(() => {
   nextTick(() => {
@@ -62,6 +62,13 @@ watch(() => props.visible, async (val) => {
     <div class="flex items-center gap-1">
       <h2 class="text-xl font-bold">{{ title }}</h2>
       <RoundTag :text="type" :type="type" class="mt-0.5" />
+      <button
+        v-if="props.link"
+        class="ml-2 text-gray-500 hover:text-black transition"
+        @click="redirectToLink"
+        >
+        Open  ↗
+      </button>
     </div>
     <p>{{ date?.split('T')[0] ?? '' }}</p>
 
@@ -71,7 +78,6 @@ watch(() => props.visible, async (val) => {
       :style="{ maxHeight: currentHeight + 'px' }"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      @mousedown="redirectToLink"
     >
       <p class="whitespace-pre-line">
         {{ description }}
